@@ -3,53 +3,181 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/nshkrdotcom/cursor_cli_sdk"><img src="https://img.shields.io/badge/GitHub-nshkrdotcom%2Fcursor_cli_sdk-24292e?logo=github" alt="GitHub"/></a>
+  <a href="https://hex.pm/packages/cursor_cli_sdk"><img src="https://img.shields.io/hexpm/v/cursor_cli_sdk.svg" alt="Hex version"/></a>
+  <a href="https://hexdocs.pm/cursor_cli_sdk"><img src="https://img.shields.io/badge/hex-docs-blue.svg" alt="HexDocs"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
+  <a href="https://github.com/nshkrdotcom/cursor_cli_sdk"><img src="https://img.shields.io/badge/GitHub-nshkrdotcom%2Fcursor_cli_sdk-24292e?logo=github" alt="GitHub"/></a>
 </p>
 
 # CursorCliSdk
 
-Elixir SDK for the Cursor Agent CLI (`agent`) with stream-json execution,
-governed launch, command helpers, MCP wrappers, model/session helpers, and
-stack integration through `cli_subprocess_core` and `agent_session_manager`.
+Elixir SDK for the Cursor Agent CLI (`agent`). It runs Cursor's headless
+stream-json mode through `cli_subprocess_core`, projects NDJSON into typed
+Elixir events, exposes synchronous and streaming APIs, and provides governed
+launch, MCP, model, session, and ASM integration helpers.
 
 ## Documentation Menu
 
-- `README.md` - overview and installation
-- `guides/provider_behavior_manifest.md` - Phase 3 behavior evidence skeleton
-- `CHANGELOG.md` - version history
-- `LICENSE` - MIT License (Copyright (c) 2026 nshkrdotcom)
+- [Getting Started](guides/getting-started.md)
+- [Options](guides/options.md)
+- [Models](guides/models.md)
+- [Configuration](guides/configuration.md)
+- [Authentication](guides/authentication.md)
+- [Streaming](guides/streaming.md)
+- [Synchronous Runs](guides/synchronous.md)
+- [Sessions](guides/sessions.md)
+- [Error Handling](guides/error-handling.md)
+- [Architecture](guides/architecture.md)
+- [Governed Launch](guides/governed-launch.md)
+- [ASM Integration](guides/asm-integration.md)
+- [MCP](guides/mcp.md)
+- [Testing](guides/testing.md)
+- [Provider Behavior Manifest](guides/provider_behavior_manifest.md)
+- [Changelog](CHANGELOG.md)
+- [License](LICENSE)
 
-## Status
+## Features
 
-Phase 3 implementation is active. Full onboarding docs are intentionally
-reserved for the Phase 4 documentation pass.
+- Lazy streaming with `CursorCliSdk.execute/2`
+- One-shot text responses with `CursorCliSdk.run/2`
+- Typed event projection for init, assistant message, thinking, tool use, tool result, result, and error events
+- Shared Cursor parser and invocation contract from `CliSubprocessCore.ProviderProfiles.Cursor`
+- Governed launch validation that rejects caller command, cwd, env, API key, and execution-surface smuggling
+- Cursor command helpers for version, models, status, chat creation, sessions, and MCP commands
+- Session resume and continue helpers
+- Runtime configuration for timeouts, stderr buffering, and headless spawn staggering
+- ASM SDK lane support through `agent_session_manager`
 
 ## Installation
 
 ```elixir
 def deps do
   [
-    {:cursor_cli_sdk, "~> 0.1.0", organization: "nshkrdotcom"}
+    {:cursor_cli_sdk, "~> 0.1.0"}
   ]
 end
 ```
 
-Path or git dependency is expected until the first Hex publish.
+The `agent` binary must be available on `PATH`, or pass `cli_command:` in
+standalone options. Authenticate with Cursor's CLI login flow or materialize
+`CURSOR_API_KEY` through `CursorCliSdk.Options.api_key`, `Options.env`, or a
+governed launch authority.
+
+## Authentication
+
+Standalone callers provide credentials explicitly:
+
+```elixir
+options =
+  CursorCliSdk.Options.new!(
+    api_key: System.fetch_env!("CURSOR_API_KEY"),
+    permission_mode: :bypass
+  )
+```
+
+The library never reads `System.get_env/1` from `lib/**`. Application code owns
+environment lookup. In governed mode, credentials come from
+`CliSubprocessCore.GovernedAuthority`; caller-supplied `api_key`, `cwd`, `env`,
+`cli_command`, and `execution_surface` are rejected.
+
+See [Authentication](guides/authentication.md) and
+[Governed Launch](guides/governed-launch.md).
 
 ## Quick Start
+
+Streaming:
+
+```elixir
+options = CursorCliSdk.Options.new!(permission_mode: :bypass)
+
+CursorCliSdk.execute("Reply with exactly: OK", options)
+|> Enum.each(fn event ->
+  IO.inspect(event)
+end)
+```
+
+Synchronous:
 
 ```elixir
 {:ok, text} =
   CursorCliSdk.run(
     "Reply with exactly: OK",
-    %CursorCliSdk.Options{permission_mode: :bypass}
+    CursorCliSdk.Options.new!(permission_mode: :bypass)
   )
 ```
 
-For streaming:
+Workspace placement:
 
 ```elixir
-CursorCliSdk.execute("Reply with exactly: OK", %CursorCliSdk.Options{})
-|> Enum.to_list()
+options =
+  CursorCliSdk.Options.new!(
+    cwd: "/workspace/app",
+    model: "composer-2.5-fast",
+    permission_mode: :plan
+  )
 ```
+
+`cwd` is the only workspace field. It becomes the process cwd and Cursor's
+`--workspace <cwd>` argv pair.
+
+Sessions:
+
+```elixir
+{:ok, sessions} = CursorCliSdk.Session.list_sessions()
+
+events =
+  CursorCliSdk.Session.resume_session(
+    hd(sessions).id,
+    CursorCliSdk.Options.new!(permission_mode: :bypass),
+    "Continue with a one-sentence summary."
+  )
+
+Enum.to_list(events)
+```
+
+## Event Types
+
+| Struct | Meaning |
+| --- | --- |
+| `CursorCliSdk.Types.InitEvent` | Cursor `system/init` metadata such as session, model, and cwd |
+| `CursorCliSdk.Types.MessageEvent` | User or assistant message content; assistant deltas set `delta?: true` |
+| `CursorCliSdk.Types.ThinkingEvent` | Cursor thinking/progress text when emitted |
+| `CursorCliSdk.Types.ToolUseEvent` | Tool call name, call id, and input |
+| `CursorCliSdk.Types.ToolResultEvent` | Tool call result payload |
+| `CursorCliSdk.Types.ResultEvent` | Final status, stop reason, result text, usage, and timing |
+| `CursorCliSdk.Types.ErrorEvent` | Stream or CLI error projected into a typed event |
+
+## Headless Invocation Contract
+
+The canonical streaming command shape is:
+
+```bash
+agent -p --trust --output-format stream-json --stream-partial-output [options] "prompt text"
+```
+
+The prompt is positional. There is no `--prompt` flag in this SDK contract.
+
+## ASM Integration
+
+`agent_session_manager` can run Cursor through either lane:
+
+- `:core` lane: `CliSubprocessCore.ProviderProfiles.Cursor`
+- `:sdk` lane: `CursorCliSdk.Runtime.CLI` when `cursor_cli_sdk` is present
+
+See [ASM Integration](guides/asm-integration.md).
+
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| `agent` not found | Install Cursor Agent CLI or pass `cli_command:` |
+| Auth failure / exit 41 | Confirm CLI login or materialized `CURSOR_API_KEY` |
+| Immediate exit in many concurrent runs | Lower app concurrency or increase `spawn_stagger_ms` |
+| Stream timeout | Increase `timeout_ms` on `CursorCliSdk.Options` |
+| No assistant text from `run/2` | Inspect streaming events with `execute/2` and stderr diagnostics |
+
+## Links
+
+- [Cursor CLI documentation](https://cursor.com/docs/cli/overview)
+- [cli_subprocess_core](https://github.com/nshkrdotcom/cli_subprocess_core)
+- [agent_session_manager](https://github.com/nshkrdotcom/agent_session_manager)

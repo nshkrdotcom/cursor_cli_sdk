@@ -54,7 +54,7 @@ defmodule CursorCliSdk.MixProject do
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.17"},
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
@@ -71,6 +71,7 @@ defmodule CursorCliSdk.MixProject do
       links: %{
         "GitHub" => @source_url,
         "HexDocs" => @docs_url,
+        "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
         "Cursor CLI" => "https://cursor.com/docs/cli/overview"
       },
       maintainers: ["nshkrdotcom"],
@@ -90,31 +91,71 @@ defmodule CursorCliSdk.MixProject do
       logo: "assets/cursor_cli_sdk.svg",
       extras: [
         "README.md": [title: "Overview"],
+        "guides/getting-started.md": [title: "Getting Started"],
+        "guides/options.md": [title: "Options"],
+        "guides/models.md": [title: "Models"],
+        "guides/configuration.md": [title: "Configuration"],
+        "guides/authentication.md": [title: "Authentication"],
+        "guides/streaming.md": [title: "Streaming"],
+        "guides/synchronous.md": [title: "Synchronous Runs"],
+        "guides/sessions.md": [title: "Sessions"],
+        "guides/error-handling.md": [title: "Error Handling"],
+        "guides/architecture.md": [title: "Architecture"],
+        "guides/governed-launch.md": [title: "Governed Launch"],
+        "guides/asm-integration.md": [title: "ASM Integration"],
+        "guides/mcp.md": [title: "MCP"],
+        "guides/testing.md": [title: "Testing"],
         "guides/provider_behavior_manifest.md": [title: "Provider Behavior Manifest"],
         "CHANGELOG.md": [title: "Changelog"],
         LICENSE: [title: "License"]
       ],
       groups_for_extras: [
         "Project Overview": ["README.md"],
-        Operations: ["guides/provider_behavior_manifest.md"],
+        Foundations: [
+          "guides/getting-started.md",
+          "guides/options.md",
+          "guides/models.md",
+          "guides/configuration.md",
+          "guides/authentication.md"
+        ],
+        Runtime: [
+          "guides/streaming.md",
+          "guides/synchronous.md",
+          "guides/sessions.md",
+          "guides/error-handling.md"
+        ],
+        "Stack Integration": [
+          "guides/architecture.md",
+          "guides/governed-launch.md",
+          "guides/asm-integration.md",
+          "guides/mcp.md"
+        ],
+        Operations: [
+          "guides/provider_behavior_manifest.md",
+          "guides/testing.md"
+        ],
         Reference: ["CHANGELOG.md", "LICENSE"]
       ],
       groups_for_modules: [
         "Public API": [
-          CursorCliSdk,
+          CursorCliSdk
+        ],
+        Configuration: [
           CursorCliSdk.Options,
           CursorCliSdk.Configuration,
           CursorCliSdk.CLI,
-          CursorCliSdk.Command,
-          CursorCliSdk.Session,
-          CursorCliSdk.MCP,
+          CursorCliSdk.ArgBuilder,
           CursorCliSdk.Models
         ],
-        Runtime: [
+        "Commands & Sessions": [
+          CursorCliSdk.Command,
+          CursorCliSdk.Session,
+          CursorCliSdk.MCP
+        ],
+        "Governed & Runtime": [
+          CursorCliSdk.GovernedLaunch,
           CursorCliSdk.Stream,
-          CursorCliSdk.Runtime.CLI,
-          CursorCliSdk.ArgBuilder,
-          CursorCliSdk.GovernedLaunch
+          CursorCliSdk.Runtime.CLI
         ],
         Types: [
           CursorCliSdk.Types,
@@ -127,7 +168,12 @@ defmodule CursorCliSdk.MixProject do
           CursorCliSdk.Types.ErrorEvent,
           CursorCliSdk.Types.Stats
         ],
-        Errors: [CursorCliSdk.Error]
+        Errors: [CursorCliSdk.Error],
+        Internals: [
+          CursorCliSdk.Schema,
+          CursorCliSdk.Schema.Options,
+          CursorCliSdk.Application
+        ]
       ]
     ]
   end
