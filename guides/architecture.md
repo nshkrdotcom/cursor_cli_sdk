@@ -20,7 +20,7 @@ flowchart TD
 | `CursorCliSdk.Options` | Typed caller input and validation |
 | `CursorCliSdk.ArgBuilder` | Cursor argv rendering |
 | `CursorCliSdk.CLI` | Command resolution and invocation construction |
-| `CursorCliSdk.Runtime.CLI` | Session-compatible runtime used by ASM and streams |
+| `CursorCliSdk.Runtime.CLI` | Session-shaped runtime used by ASM and streams |
 | `CursorCliSdk.Stream` | Lazy enumerable over runtime events |
 | `CursorCliSdk.Types` | Projection from core events into SDK event structs |
 | `CliSubprocessCore.ProviderProfiles.Cursor` | Canonical Cursor NDJSON parser and core invocation profile |
