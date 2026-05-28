@@ -1,0 +1,5 @@
+{"type":"system","subtype":"init","session_id":"cursor-session-tool","model":"Composer 2.5","cwd":"/tmp/cursor"}
+{"type":"thinking","subtype":"delta","text":"Need tool","session_id":"cursor-session-tool","timestamp_ms":1000}
+{"type":"tool_call","subtype":"started","call_id":"tool-cursor-1","tool_call":{"shellToolCall":{"args":{"command":"pwd","toolCallId":"tool-cursor-1"},"description":"Print working directory"}},"session_id":"cursor-session-tool","timestamp_ms":1001}
+{"type":"tool_call","subtype":"completed","call_id":"tool-cursor-1","tool_call":{"shellToolCall":{"args":{"command":"pwd","toolCallId":"tool-cursor-1"},"result":{"success":{"stdout":"/tmp\n","stderr":"","exitCode":0}},"description":"Print working directory"}},"session_id":"cursor-session-tool","timestamp_ms":1002}
+{"type":"result","subtype":"success","duration_ms":300,"is_error":false,"result":"TOOL_OK","session_id":"cursor-session-tool","usage":{"inputTokens":4,"outputTokens":2}}

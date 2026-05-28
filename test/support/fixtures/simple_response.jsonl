@@ -1,0 +1,5 @@
+{"type":"system","subtype":"init","session_id":"cursor-session-test","model":"Composer 2.5","cwd":"/tmp/cursor"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"CURSOR"}]},"session_id":"cursor-session-test","timestamp_ms":1001}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"_OK"}]},"session_id":"cursor-session-test","timestamp_ms":1002}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"CURSOR_OK"}]},"session_id":"cursor-session-test"}
+{"type":"result","subtype":"success","duration_ms":250,"is_error":false,"result":"CURSOR_OK","session_id":"cursor-session-test","usage":{"inputTokens":3,"outputTokens":5}}

@@ -9,17 +9,21 @@
 
 # CursorCliSdk
 
-Elixir SDK skeleton for the Cursor Agent CLI (`agent`), prepared for stream-json headless sessions, governed launch, and stack integration through `cli_subprocess_core` and `agent_session_manager`.
+Elixir SDK for the Cursor Agent CLI (`agent`) with stream-json execution,
+governed launch, command helpers, MCP wrappers, model/session helpers, and
+stack integration through `cli_subprocess_core` and `agent_session_manager`.
 
 ## Documentation Menu
 
 - `README.md` - overview and installation
+- `guides/provider_behavior_manifest.md` - Phase 3 behavior evidence skeleton
 - `CHANGELOG.md` - version history
 - `LICENSE` - MIT License (Copyright (c) 2026 nshkrdotcom)
 
 ## Status
 
-Bootstrap skeleton only. Provider implementation is tracked in the Cursor CLI integration docsets.
+Phase 3 implementation is active. Full onboarding docs are intentionally
+reserved for the Phase 4 documentation pass.
 
 ## Installation
 
@@ -32,3 +36,20 @@ end
 ```
 
 Path or git dependency is expected until the first Hex publish.
+
+## Quick Start
+
+```elixir
+{:ok, text} =
+  CursorCliSdk.run(
+    "Reply with exactly: OK",
+    %CursorCliSdk.Options{permission_mode: :bypass}
+  )
+```
+
+For streaming:
+
+```elixir
+CursorCliSdk.execute("Reply with exactly: OK", %CursorCliSdk.Options{})
+|> Enum.to_list()
+```
