@@ -77,4 +77,8 @@ For live credentials in this workspace, use the shared wrapper:
 
 ```bash
 ~/scripts/with_bash_secrets mix run examples/simple_stream.exs
+~/scripts/with_bash_secrets bash examples/run_all.sh
 ```
+
+The HexDocs Examples page is sourced from
+[examples/README.md](../examples/README.md).

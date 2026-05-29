@@ -1,13 +1,12 @@
-prompt = "Reply with exactly: CURSOR_SDK_DIRECT_OK"
+Code.require_file("../support/example_helper.exs", __DIR__)
 
-case CursorCliSdk.run(prompt, %CursorCliSdk.Options{permission_mode: :bypass, timeout_ms: 120_000}) do
-  {:ok, "CURSOR_SDK_DIRECT_OK"} ->
-    IO.puts("sdk_direct_text=\"CURSOR_SDK_DIRECT_OK\"")
+alias CursorCliSdk.Examples.Helper
 
-  {:ok, other} ->
-    Mix.raise("sdk direct result mismatch: #{inspect(other)}")
+config = Helper.parse!()
+Helper.print_header("promotion_path/sdk_direct_cursor", config)
 
-  {:error, error} ->
-    Mix.raise("sdk direct failed: #{Exception.message(error)}")
-end
-
+Helper.assert_exact_text(
+  CursorCliSdk.run("Reply with exactly: CURSOR_SDK_DIRECT_OK", Helper.options(config)),
+  "CURSOR_SDK_DIRECT_OK",
+  "sdk_direct_text"
+)

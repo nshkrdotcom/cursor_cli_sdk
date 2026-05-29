@@ -33,6 +33,7 @@ launch, MCP, model, session, and ASM integration helpers.
 - [MCP](guides/mcp.md)
 - [Testing](guides/testing.md)
 - [Provider Behavior Manifest](guides/provider_behavior_manifest.md)
+- [Examples](examples/README.md)
 - [Changelog](CHANGELOG.md)
 - [License](LICENSE)
 
@@ -134,6 +135,17 @@ events =
 
 Enum.to_list(events)
 ```
+
+## Examples
+
+Run the SDK-owned example suite with:
+
+```bash
+~/scripts/with_bash_secrets bash examples/run_all.sh
+```
+
+See [Examples](examples/README.md) for the full inventory. These are direct SDK
+examples; ASM provider examples live in `agent_session_manager/examples`.
 
 ## Event Types
 

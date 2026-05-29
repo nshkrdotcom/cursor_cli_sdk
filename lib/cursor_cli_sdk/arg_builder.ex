@@ -11,6 +11,7 @@ defmodule CursorCliSdk.ArgBuilder do
     |> add_model(opts)
     |> add_workspace(opts)
     |> add_resume(opts)
+    |> add_continue(opts)
     |> add_mode(opts)
     |> add_sandbox(opts)
     |> add_flag("--approve-mcps", opts.approve_mcps)
@@ -41,6 +42,10 @@ defmodule CursorCliSdk.ArgBuilder do
   defp add_model(args, %Options{} = opts), do: add_pair(args, "--model", resolved_model(opts))
   defp add_workspace(args, %Options{cwd: cwd}), do: add_pair(args, "--workspace", cwd)
   defp add_resume(args, %Options{resume: resume}), do: add_pair(args, "--resume", resume)
+
+  defp add_continue(args, %Options{continue: continue?}),
+    do: add_flag(args, "--continue", continue?)
+
   defp add_mode(args, %Options{mode: mode}) when mode in [nil, :agent, :default], do: args
   defp add_mode(args, %Options{mode: mode}), do: add_pair(args, "--mode", mode)
 

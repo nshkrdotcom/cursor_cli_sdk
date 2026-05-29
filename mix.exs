@@ -106,6 +106,7 @@ defmodule CursorCliSdk.MixProject do
         "guides/mcp.md": [title: "MCP"],
         "guides/testing.md": [title: "Testing"],
         "guides/provider_behavior_manifest.md": [title: "Provider Behavior Manifest"],
+        "examples/README.md": [title: "Examples", filename: "examples"],
         "CHANGELOG.md": [title: "Changelog"],
         LICENSE: [title: "License"]
       ],
@@ -134,6 +135,7 @@ defmodule CursorCliSdk.MixProject do
           "guides/provider_behavior_manifest.md",
           "guides/testing.md"
         ],
+        Examples: ["examples/README.md"],
         Reference: ["CHANGELOG.md", "LICENSE"]
       ],
       groups_for_modules: [
@@ -195,6 +197,7 @@ defmodule CursorCliSdk.MixProject do
         "credo --strict",
         "dialyzer"
       ],
+      "examples.all": ["cmd bash examples/run_all.sh"],
       "test.live": ["test --include live"]
     ]
   end
