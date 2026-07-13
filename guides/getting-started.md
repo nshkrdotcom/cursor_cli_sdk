@@ -5,7 +5,7 @@ the CLI to be installed and authenticated before live commands run.
 
 ## Prerequisites
 
-- Elixir 1.18 or later
+- Elixir 1.19 or later
 - Cursor Agent CLI available as `agent` on `PATH`, or an explicit `cli_command`
 - Cursor authentication through CLI login or a caller-provided `CURSOR_API_KEY`
 

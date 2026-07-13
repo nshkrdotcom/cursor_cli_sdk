@@ -8,13 +8,14 @@ defmodule CursorCliSdk.MixProject do
   @app :cursor_cli_sdk
   @version "0.1.0"
   @source_url "https://github.com/nshkrdotcom/cursor_cli_sdk"
+  @homepage_url "https://hex.pm/packages/cursor_cli_sdk"
   @docs_url "https://hexdocs.pm/cursor_cli_sdk"
 
   def project do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.18",
+      elixir: "~> 1.19",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -25,7 +26,7 @@ defmodule CursorCliSdk.MixProject do
       dialyzer: dialyzer(),
       name: "CursorCliSdk",
       source_url: @source_url,
-      homepage_url: @docs_url
+      homepage_url: @homepage_url
     ]
   end
 
@@ -70,13 +71,23 @@ defmodule CursorCliSdk.MixProject do
       licenses: ["MIT"],
       links: %{
         "GitHub" => @source_url,
+        "Hex" => @homepage_url,
         "HexDocs" => @docs_url,
         "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
         "Cursor CLI" => "https://cursor.com/docs/cli/overview"
       },
       maintainers: ["nshkrdotcom"],
       files:
-        ~w(lib assets build_support guides examples mix.exs README.md LICENSE CHANGELOG.md .formatter.exs)
+        ~w(lib assets build_support guides examples mix.exs README.md LICENSE CHANGELOG.md .formatter.exs),
+      exclude_patterns: [
+        "**/_build/**",
+        "**/deps/**",
+        "**/doc/**",
+        "**/*.beam",
+        "**/*.plt",
+        "**/*.plt.hash",
+        "examples/_output/**"
+      ]
     ]
   end
 
@@ -84,7 +95,7 @@ defmodule CursorCliSdk.MixProject do
     [
       main: "readme",
       name: "CursorCliSdk",
-      source_ref: "main",
+      source_ref: "v#{@version}",
       source_url: @source_url,
       homepage_url: @docs_url,
       assets: %{"assets" => "assets"},
