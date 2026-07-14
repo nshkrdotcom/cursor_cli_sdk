@@ -77,8 +77,7 @@ defmodule CursorCliSdk.MixProject do
         "Cursor CLI" => "https://cursor.com/docs/cli/overview"
       },
       maintainers: ["nshkrdotcom"],
-      files:
-        ~w(lib assets build_support guides examples mix.exs README.md LICENSE CHANGELOG.md .formatter.exs),
+      files: ~w(lib assets build_support guides examples mix.exs README.md LICENSE CHANGELOG.md),
       exclude_patterns: [
         "**/_build/**",
         "**/deps/**",

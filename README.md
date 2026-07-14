@@ -3,10 +3,8 @@
 </p>
 
 <p align="center">
-  <a href="https://hex.pm/packages/cursor_cli_sdk"><img src="https://img.shields.io/hexpm/v/cursor_cli_sdk.svg" alt="Hex version"/></a>
-  <a href="https://hexdocs.pm/cursor_cli_sdk"><img src="https://img.shields.io/badge/hex-docs-blue.svg" alt="HexDocs"/></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
   <a href="https://github.com/nshkrdotcom/cursor_cli_sdk"><img src="https://img.shields.io/badge/GitHub-nshkrdotcom%2Fcursor_cli_sdk-24292e?logo=github" alt="GitHub"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"/></a>
 </p>
 
 # CursorCliSdk
