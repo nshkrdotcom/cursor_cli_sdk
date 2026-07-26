@@ -13,7 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adopted the shared dependency-source contract, including deterministic
   source selection, source-lock verification, release DAG ordering, and a
-  fail-closed Hex package-existence preflight.
+  fail-closed preflight for the exact local sibling release on Hex. Nested
+  package tasks resolve the helper-owning repository, and manifest self-entries
+  are excluded from prerequisites.
 - Release metadata now targets `cli_subprocess_core ~> 0.3.0`.
 
 ## [0.1.0] - 2026-07-13
