@@ -14,7 +14,7 @@ the CLI to be installed and authenticated before live commands run.
 ```elixir
 def deps do
   [
-    {:cursor_cli_sdk, "~> 0.1.0"}
+    {:cursor_cli_sdk, "~> 0.2.0"}
   ]
 end
 ```

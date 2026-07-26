@@ -49,12 +49,12 @@ launch, MCP, model, session, and ASM integration helpers.
 
 ## Installation
 
-CursorCliSdk 0.1.0 requires Elixir 1.19 or later.
+CursorCliSdk 0.2.0 requires Elixir 1.19 or later.
 
 ```elixir
 def deps do
   [
-    {:cursor_cli_sdk, "~> 0.1.0"}
+    {:cursor_cli_sdk, "~> 0.2.0"}
   ]
 end
 ```
@@ -64,7 +64,7 @@ standalone options. Authenticate with Cursor's CLI login flow or materialize
 `CURSOR_API_KEY` through `CursorCliSdk.Options.api_key`, `Options.env`, or a
 governed launch authority.
 
-The package depends on `cli_subprocess_core ~> 0.2.0`. That lower package must
+The package depends on `cli_subprocess_core ~> 0.3.0`. That lower package must
 be available before a Hex-only installation can resolve.
 
 ## Authentication

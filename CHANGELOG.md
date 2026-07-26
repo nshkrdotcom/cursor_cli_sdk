@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-25
+
+### Changed
+
+- Adopted the shared dependency-source contract, including deterministic
+  source selection, source-lock verification, release DAG ordering, and a
+  fail-closed Hex package-existence preflight.
+- Release metadata now targets `cli_subprocess_core ~> 0.3.0`.
+
 ## [0.1.0] - 2026-07-13
 
 ### Added
@@ -42,5 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API keys are placed only in the child environment, never on argv, and
   governed launch rejects unmanaged credential or placement overrides.
 
-[Unreleased]: https://github.com/nshkrdotcom/cursor_cli_sdk/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/nshkrdotcom/cursor_cli_sdk/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/nshkrdotcom/cursor_cli_sdk/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/nshkrdotcom/cursor_cli_sdk/releases/tag/v0.1.0

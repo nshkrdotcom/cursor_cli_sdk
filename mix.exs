@@ -6,7 +6,7 @@ defmodule CursorCliSdk.MixProject do
   use Mix.Project
 
   @app :cursor_cli_sdk
-  @version "0.1.0"
+  @version "0.2.0"
   @source_url "https://github.com/nshkrdotcom/cursor_cli_sdk"
   @homepage_url "https://hex.pm/packages/cursor_cli_sdk"
   @docs_url "https://hexdocs.pm/cursor_cli_sdk"
@@ -74,6 +74,7 @@ defmodule CursorCliSdk.MixProject do
         "Hex" => @homepage_url,
         "HexDocs" => @docs_url,
         "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
+        "License" => "#{@source_url}/blob/main/LICENSE",
         "Cursor CLI" => "https://cursor.com/docs/cli/overview"
       },
       maintainers: ["nshkrdotcom"],
