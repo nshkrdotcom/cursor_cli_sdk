@@ -14,7 +14,7 @@ defmodule CursorCliSdk.MixProject do
   @workspace_checkout? File.regular?(Path.expand("build_support/dependency_sources.exs", __DIR__))
 
   @app :cursor_cli_sdk
-  @version "0.2.0"
+  @version "0.3.0"
   @source_url "https://github.com/nshkrdotcom/cursor_cli_sdk"
   @homepage_url "https://hex.pm/packages/cursor_cli_sdk"
   @docs_url "https://hexdocs.pm/cursor_cli_sdk"
@@ -59,7 +59,7 @@ defmodule CursorCliSdk.MixProject do
 
   defp deps do
     [
-      workspace_dep(:cli_subprocess_core, "~> 0.3.0"),
+      workspace_dep(:cli_subprocess_core, "~> 0.7.0"),
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18"},
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
@@ -71,7 +71,6 @@ defmodule CursorCliSdk.MixProject do
   defp description do
     "Elixir SDK for the Cursor Agent CLI with streaming, governed launch, MCP helpers, and ASM integration."
   end
-
 
   # In a source checkout the registry decides the source (path first). In a
   # published package there is no registry, and the requirement stated here is
@@ -137,6 +136,7 @@ defmodule CursorCliSdk.MixProject do
         "guides/mcp.md": [title: "MCP"],
         "guides/testing.md": [title: "Testing"],
         "guides/provider_behavior_manifest.md": [title: "Provider Behavior Manifest"],
+        "guides/migrating-to-0.3.md": [title: "Migrating to 0.3"],
         "examples/README.md": [title: "Examples", filename: "examples"],
         "CHANGELOG.md": [title: "Changelog"],
         LICENSE: [title: "License"]
@@ -167,7 +167,7 @@ defmodule CursorCliSdk.MixProject do
           "guides/testing.md"
         ],
         Examples: ["examples/README.md"],
-        Reference: ["CHANGELOG.md", "LICENSE"]
+        Reference: ["guides/migrating-to-0.3.md", "CHANGELOG.md", "LICENSE"]
       ],
       groups_for_modules: [
         "Public API": [

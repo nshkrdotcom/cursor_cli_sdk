@@ -13,7 +13,7 @@ through two lanes.
 ASM activates the SDK lane when `cursor_cli_sdk` is present:
 
 ```elixir
-{:cursor_cli_sdk, "~> 0.2.0"}
+{:cursor_cli_sdk, "~> 0.3.0"}
 ```
 
 ## Start a Cursor SDK Session
