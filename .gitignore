@@ -6,4 +6,3 @@ erl_crash.dump
 *.ez
 cursor_cli_sdk-*.tar
 /tmp/
-.dependency_sources.local.exs
