@@ -12,18 +12,18 @@ defmodule CursorCliSdk.ReleasePreparationTest do
     :inference
   ]
 
-  test "release metadata targets Cursor CLI SDK 0.3.0 on Elixir 1.19" do
+  test "release metadata targets Cursor CLI SDK 0.4.0 on Elixir 1.19" do
     project = Mix.Project.config()
 
-    assert project[:version] == "0.3.0"
+    assert project[:version] == "0.4.0"
     assert project[:elixir] == "~> 1.19"
-    assert project[:docs][:source_ref] == "v0.3.0"
+    assert project[:docs][:source_ref] == "v0.4.0"
     assert project[:homepage_url] == "https://hex.pm/packages/cursor_cli_sdk"
   end
 
-  test "publish mode selects cli_subprocess_core 0.7 from Hex" do
-    assert {:cli_subprocess_core, "~> 0.7.0"} =
-             List.keyfind(Mix.Project.config()[:deps], :cli_subprocess_core, 0)
+  test "publish mode selects cli_subprocess_core 0.8 from Hex" do
+    assert {:cli_subprocess_core, "~> 0.8.0"} =
+             List.keyfind(standalone_deps(), :cli_subprocess_core, 0)
   end
 
   test "package metadata is complete for the first Hex release" do
@@ -91,7 +91,7 @@ defmodule CursorCliSdk.ReleasePreparationTest do
   end
 
   test "cursor_cli_sdk does not declare ASM or sibling provider SDK dependencies" do
-    declared = Mix.Project.config()[:deps] |> Enum.map(&dep_name/1) |> MapSet.new()
+    declared = standalone_deps() |> Enum.map(&dep_name/1) |> MapSet.new()
 
     for dep <- @forbidden_deps do
       refute MapSet.member?(declared, dep),
@@ -101,4 +101,18 @@ defmodule CursorCliSdk.ReleasePreparationTest do
 
   defp dep_name({name, _requirement}), do: name
   defp dep_name({name, _requirement, _opts}), do: name
+
+  defp standalone_deps do
+    code =
+      "Mix.Project.config()[:deps] |> :erlang.term_to_binary() |> Base.encode64() |> IO.puts()"
+
+    {output, 0} =
+      System.cmd("mix", ["run", "--no-start", "--no-compile", "--no-deps-check", "-e", code],
+        cd: Path.expand("../..", __DIR__),
+        env: [{"MIX_WORKSPACE_OPS_BOOTSTRAP", nil}, {"MIX_EXS", nil}],
+        stderr_to_stdout: true
+      )
+
+    output |> String.trim() |> Base.decode64!() |> :erlang.binary_to_term()
+  end
 end

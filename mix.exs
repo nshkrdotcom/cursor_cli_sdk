@@ -4,7 +4,7 @@ defmodule CursorCliSdk.MixProject do
   use Mix.Project
 
   @app :cursor_cli_sdk
-  @version "0.3.0"
+  @version "0.4.0"
   @source_url "https://github.com/nshkrdotcom/cursor_cli_sdk"
   @homepage_url "https://hex.pm/packages/cursor_cli_sdk"
   @docs_url "https://hexdocs.pm/cursor_cli_sdk"
@@ -49,7 +49,7 @@ defmodule CursorCliSdk.MixProject do
 
   defp deps do
     [
-      workspace_dep({:cli_subprocess_core, "~> 0.7.0"}),
+      workspace_dep({:cli_subprocess_core, "~> 0.8.0"}),
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18"},
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
