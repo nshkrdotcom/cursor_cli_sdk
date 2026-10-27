@@ -12,17 +12,17 @@ defmodule CursorCliSdk.ReleasePreparationTest do
     :inference
   ]
 
-  test "release metadata targets Cursor CLI SDK 0.4.1 on Elixir 1.19" do
+  test "release metadata targets Cursor CLI SDK 0.4.2 on Elixir 1.19" do
     project = Mix.Project.config()
 
-    assert project[:version] == "0.4.1"
+    assert project[:version] == "0.4.2"
     assert project[:elixir] == "~> 1.19"
-    assert project[:docs][:source_ref] == "v0.4.1"
+    assert project[:docs][:source_ref] == "v0.4.2"
     assert project[:homepage_url] == "https://hex.pm/packages/cursor_cli_sdk"
   end
 
   test "publish mode selects cli_subprocess_core 0.9.3 from Hex" do
-    assert {:cli_subprocess_core, "~> 0.9.3"} =
+    assert {:cli_subprocess_core, "~> 0.9.5"} =
              List.keyfind(standalone_deps(), :cli_subprocess_core, 0)
   end
 

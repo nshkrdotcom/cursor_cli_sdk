@@ -9,6 +9,8 @@
 
 # CursorCliSdk
 
+Next release: **0.4.2** (unreleased).
+
 Elixir SDK for the Cursor Agent CLI (`agent`). It runs Cursor's headless
 stream-json mode through `cli_subprocess_core`, projects NDJSON into typed
 Elixir events, exposes synchronous and streaming APIs, and provides governed
@@ -49,12 +51,12 @@ launch, MCP, model, session, and ASM integration helpers.
 
 ## Installation
 
-CursorCliSdk 0.4.1 requires Elixir 1.19 or later.
+CursorCliSdk 0.4.2 requires Elixir 1.19 or later.
 
 ```elixir
 def deps do
   [
-    {:cursor_cli_sdk, "~> 0.4.1"}
+    {:cursor_cli_sdk, "~> 0.4.2"}
   ]
 end
 ```
@@ -64,7 +66,7 @@ standalone options. Authenticate with Cursor's CLI login flow or materialize
 `CURSOR_API_KEY` through `CursorCliSdk.Options.api_key`, `Options.env`, or a
 governed launch authority.
 
-The package depends on `cli_subprocess_core ~> 0.9.3`. That lower package must
+The package depends on `cli_subprocess_core ~> 0.9.5`. That lower package must
 be available before a Hex-only installation can resolve.
 
 ## Authentication
